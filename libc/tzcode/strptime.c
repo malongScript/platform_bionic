@@ -282,6 +282,7 @@ literal:
         case 'k':   /* The hour (24-hour clock representation). */
             _LEGAL_ALT(0);
             /* FALLTHROUGH */
+            __attribute__((fallthrough));
         case 'H':
             _LEGAL_ALT(_ALT_O);
             if (!(_conv_num(&bp, &tm->tm_hour, 0, 23)))
@@ -291,6 +292,7 @@ literal:
         case 'l':   /* The hour (12-hour clock representation). */
             _LEGAL_ALT(0);
             /* FALLTHROUGH */
+            __attribute__((fallthrough));
         case 'I':
             _LEGAL_ALT(_ALT_O);
             if (!(_conv_num(&bp, &tm->tm_hour, 1, 12)))

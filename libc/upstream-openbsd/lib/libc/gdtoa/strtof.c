@@ -68,6 +68,7 @@ strtof(CONST char *s, char **sp)
 	  case STRTOG_NoMemory:
 		errno = ERANGE;
 		/* FALLTHROUGH */
+		__attribute__((fallthrough));
 	  case STRTOG_Infinite:
 		u.L[0] = 0x7f800000;
 		break;

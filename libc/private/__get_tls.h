@@ -46,6 +46,9 @@
 # define __get_tls() ({ void** __val; __asm__("movl %%gs:0, %0" : "=r"(__val)); __val; })
 #elif defined(__x86_64__)
 # define __get_tls() ({ void** __val; __asm__("mov %%fs:0, %0" : "=r"(__val)); __val; })
+#elif defined(__riscv)
+/* port from musl-1.2.1/arch/riscv64/pthread_arch.h */
+# define __get_tls() ({ void** __val; __asm__("mv %0, tp" : "=r"(__val)); __val; })
 #else
 #error unsupported architecture
 #endif

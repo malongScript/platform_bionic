@@ -136,6 +136,9 @@ size_t StaticTlsLayout::reserve_exe_segment_and_tcb(const TlsSegment* exe_segmen
   offset_bionic_tcb_ = reserve(sizeof(bionic_tcb), max_align);
   return offset_bionic_tcb_ - exe_size;
 
+#elif defined(__riscv)
+  // FIXME: just return 0 to pass build
+  return 0;
 #else
 #error "Unrecognized architecture"
 #endif

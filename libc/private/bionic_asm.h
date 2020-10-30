@@ -46,6 +46,10 @@
 #include <private/bionic_asm_mips.h>
 #elif defined(__x86_64__)
 #include <private/bionic_asm_x86_64.h>
+#elif defined(__riscv)
+// FIXME: till now, needless
+//#include <private/bionic_asm_riscv64.h>
+
 #endif
 
 #define ENTRY_NO_DWARF(f) \

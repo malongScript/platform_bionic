@@ -378,6 +378,7 @@ globexp2(const Char *ptr, const Char *pattern, glob_t *pglob,
 			    break;
 			}
 			/* FALLTHROUGH */
+			__attribute__((fallthrough));
 		case COMMA:
 			if (i && *pm == COMMA)
 				break;

@@ -2370,6 +2370,7 @@ res_searchN(const char *name, struct res_target *target, res_state res)
 			case NO_DATA:
 				got_nodata++;
 				/* FALLTHROUGH */
+				__attribute__((fallthrough));
 			case HOST_NOT_FOUND:
 				/* keep trying */
 				break;
@@ -2380,6 +2381,7 @@ res_searchN(const char *name, struct res_target *target, res_state res)
 					break;
 				}
 				/* FALLTHROUGH */
+				__attribute__((fallthrough));
 			default:
 				/* anything else implies that we're done */
 				done++;

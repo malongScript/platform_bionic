@@ -58,6 +58,7 @@ ULtod(ULong *L, ULong *bits, Long exp, int k)
 	  case STRTOG_NoMemory:
 		errno = ERANGE;
 		/* FALLTHROUGH */
+		__attribute__((fallthrough));
 	  case STRTOG_Infinite:
 		L[_0] = 0x7ff00000;
 		L[_1] = 0;

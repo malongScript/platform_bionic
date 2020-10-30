@@ -319,6 +319,7 @@ res_nsearch(res_state statp,
 			case NO_DATA:
 				got_nodata++;
 				/* FALLTHROUGH */
+				__attribute__((fallthrough));
 			case HOST_NOT_FOUND:
 				/* keep trying */
 				break;
@@ -329,6 +330,7 @@ res_nsearch(res_state statp,
 					break;
 				}
 				/* FALLTHROUGH */
+				__attribute__((fallthrough));
 			default:
 				/* anything else implies that we're done */
 				done++;

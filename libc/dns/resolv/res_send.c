@@ -524,6 +524,7 @@ res_nsend(res_state statp,
 					if (++loops < 42) /*doug adams*/
 						break;
 					/*FALLTHROUGH*/
+					__attribute__((fallthrough));
 				case res_error:
 					/*FALLTHROUGH*/
 				default:
@@ -646,6 +647,7 @@ res_nsend(res_state statp,
 					if (++loops < 42) /*doug adams*/
 						break;
 					/*FALLTHROUGH*/
+					__attribute__((fallthrough));
 				case res_error:
 					/*FALLTHROUGH*/
 				default:

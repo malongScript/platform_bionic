@@ -282,6 +282,7 @@ b64_pton(src, target, targsize)
 			ch = (unsigned char)*src++;		/* Skip the = */
 			/* Fall through to "single trailing =" case. */
 			/* FALLTHROUGH */
+			__attribute__((fallthrough));
 
 		case 3:		/* Valid, means two bytes of info */
 			/*

@@ -549,7 +549,7 @@ void async_safe_fatal_va_list(const char* prefix, const char* format, va_list ar
 
   // Log to stderr for the benefit of "adb shell" users and gtests.
   struct iovec iov[2] = {
-      {msg, strlen(msg)}, {const_cast<char*>("\n"), 1},
+      {msg, static_cast<__kernel_size_t>(strlen(msg))}, {const_cast<char*>("\n"), 1},
   };
   TEMP_FAILURE_RETRY(writev(2, iov, 2));
 

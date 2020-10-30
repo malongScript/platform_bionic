@@ -242,6 +242,7 @@ int __vfwscanf(FILE* __restrict fp, const wchar_t* __restrict fmt, __va_list ap)
       case 'D': /* compat */
         flags |= LONG;
         /* FALLTHROUGH */
+        __attribute__((fallthrough));
       case 'd':
         c = CT_INT;
         base = 10;
@@ -255,6 +256,7 @@ int __vfwscanf(FILE* __restrict fp, const wchar_t* __restrict fmt, __va_list ap)
       case 'O': /* compat */
         flags |= LONG;
         /* FALLTHROUGH */
+        __attribute__((fallthrough));
       case 'o':
         c = CT_INT;
         flags |= UNSIGNED;

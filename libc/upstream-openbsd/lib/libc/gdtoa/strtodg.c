@@ -384,10 +384,12 @@ strtodg
 		case '-':
 			sign = 1;
 			/* no break */
+			__attribute__((fallthrough));
 		case '+':
 			if (*++s)
 				goto break2;
 			/* no break */
+			__attribute__((fallthrough));
 		case 0:
 			sign = 0;
 			irv = STRTOG_NoNumber;
@@ -487,6 +489,7 @@ strtodg
 		switch(c = *++s) {
 			case '-':
 				esign = 1;
+				__attribute__((fallthrough));
 			case '+':
 				c = *++s;
 			}

@@ -18,7 +18,7 @@ import sys
 import tempfile
 
 
-all_arches = [ "arm", "arm64", "mips", "mips64", "x86", "x86_64" ]
+all_arches = [ "arm", "arm64", "mips", "mips64", "x86", "x86_64", "riscv64" ]
 
 
 # temp directory where we store all intermediate files
@@ -215,6 +215,20 @@ x86_64_call = """\
 END(%(func)s)
 """
 
+#
+# RISCV64 assembler templates for each syscall stub
+#
+
+riscv64_call = syscall_stub_header + """\
+    li     a7, %(__NR_name)s
+    ecall  #0
+
+    lui    a7, 0xfffff    
+    bltu   a7, a0, __set_errno_internal
+
+    ret
+END(%(func)s)
+"""
 
 def param_uses_64bits(param):
     """Returns True iff a syscall parameter description corresponds
@@ -400,6 +414,8 @@ def x86_64_genstub(syscall):
     result += x86_64_call % syscall
     return result
 
+def riscv64_genstub(syscall):
+    return riscv64_call % syscall
 
 class SysCallsTxtParser:
     def __init__(self):
@@ -564,6 +580,8 @@ class State:
             if syscall.has_key("x86_64"):
                 syscall["asm-x86_64"] = add_footer(64, x86_64_genstub(syscall), syscall)
 
+            if syscall.has_key("riscv64"):
+                syscall["asm-riscv64"] = add_footer(64, riscv64_genstub(syscall), syscall)
 
     # Scan Linux kernel asm/unistd.h files containing __NR_* constants
     # and write out equivalent SYS_* constants for glibc source compatibility.

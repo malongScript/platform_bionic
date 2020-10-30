@@ -130,6 +130,7 @@ gethex( CONST char **sp, FPI *fpi, Long *exp, Bigint **bp, int sign)
 		  case '-':
 			esign = 1;
 			/* no break */
+			__attribute__((fallthrough));
 		  case '+':
 			s++;
 		  }
