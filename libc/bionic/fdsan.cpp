@@ -36,6 +36,7 @@
 #include <string.h>
 #include <sys/cdefs.h>
 #include <sys/mman.h>
+#include <linux/mman.h>
 #include <sys/syscall.h>
 #include <unistd.h>
 

@@ -31,6 +31,19 @@
  * it might be included several times
  */
 
+/*
+ * FIXME: Please read the corresponding changes in bionic/libc/bionic/strsignal.cpp
+ *
+ * I'm using clang with llvm 10.0.1 and it will report error when we initialize 
+ * the static array with designators. But google's clang can process this.
+ * I can't wait for clang to support this feature, so I modify the code and remove
+ * the syntax about designators.
+ *
+ * To bypass the compiling error related to array designators, I adjust the
+ * sequence of this signal list to match the sequence definition in 
+ * bionic/libc/kernel/uapi/asm-generic/signal.h.
+ * Because for riscv64, the signal definition is the same as that in asm-generic
+*/
 #ifndef __BIONIC_SIGDEF
 #error __BIONIC_SIGDEF not defined
 #endif
@@ -44,32 +57,32 @@ __BIONIC_SIGDEF(SIGABRT,   "Aborted")
 #ifdef SIGEMT
 __BIONIC_SIGDEF(SIGEMT,    "EMT")
 #endif
+__BIONIC_SIGDEF(SIGBUS,    "Bus error")
 __BIONIC_SIGDEF(SIGFPE,    "Floating point exception")
 __BIONIC_SIGDEF(SIGKILL,   "Killed")
-__BIONIC_SIGDEF(SIGBUS,    "Bus error")
+__BIONIC_SIGDEF(SIGUSR1,   "User signal 1")
 __BIONIC_SIGDEF(SIGSEGV,   "Segmentation fault")
+__BIONIC_SIGDEF(SIGUSR2,   "User signal 2")
 __BIONIC_SIGDEF(SIGPIPE,   "Broken pipe")
 __BIONIC_SIGDEF(SIGALRM,   "Alarm clock")
 __BIONIC_SIGDEF(SIGTERM,   "Terminated")
-__BIONIC_SIGDEF(SIGUSR1,   "User signal 1")
-__BIONIC_SIGDEF(SIGUSR2,   "User signal 2")
-__BIONIC_SIGDEF(SIGCHLD,   "Child exited")
-__BIONIC_SIGDEF(SIGPWR,    "Power failure")
-__BIONIC_SIGDEF(SIGWINCH,  "Window size changed")
-__BIONIC_SIGDEF(SIGURG,    "Urgent I/O condition")
-__BIONIC_SIGDEF(SIGIO,     "I/O possible")
-__BIONIC_SIGDEF(SIGSTOP,   "Stopped (signal)")
-__BIONIC_SIGDEF(SIGTSTP,   "Stopped")
-__BIONIC_SIGDEF(SIGCONT,   "Continue")
-__BIONIC_SIGDEF(SIGTTIN,   "Stopped (tty input)")
-__BIONIC_SIGDEF(SIGTTOU,   "Stopped (tty output)")
-__BIONIC_SIGDEF(SIGVTALRM, "Virtual timer expired")
-__BIONIC_SIGDEF(SIGPROF,   "Profiling timer expired")
-__BIONIC_SIGDEF(SIGXCPU,   "CPU time limit exceeded")
-__BIONIC_SIGDEF(SIGXFSZ,   "File size limit exceeded")
 #if defined(SIGSTKFLT)
 __BIONIC_SIGDEF(SIGSTKFLT, "Stack fault")
 #endif
+__BIONIC_SIGDEF(SIGCHLD,   "Child exited")
+__BIONIC_SIGDEF(SIGCONT,   "Continue")
+__BIONIC_SIGDEF(SIGSTOP,   "Stopped (signal)")
+__BIONIC_SIGDEF(SIGTSTP,   "Stopped")
+__BIONIC_SIGDEF(SIGTTIN,   "Stopped (tty input)")
+__BIONIC_SIGDEF(SIGTTOU,   "Stopped (tty output)")
+__BIONIC_SIGDEF(SIGURG,    "Urgent I/O condition")
+__BIONIC_SIGDEF(SIGXCPU,   "CPU time limit exceeded")
+__BIONIC_SIGDEF(SIGXFSZ,   "File size limit exceeded")
+__BIONIC_SIGDEF(SIGVTALRM, "Virtual timer expired")
+__BIONIC_SIGDEF(SIGPROF,   "Profiling timer expired")
+__BIONIC_SIGDEF(SIGWINCH,  "Window size changed")
+__BIONIC_SIGDEF(SIGIO,     "I/O possible")
+__BIONIC_SIGDEF(SIGPWR,    "Power failure")
 __BIONIC_SIGDEF(SIGSYS,    "Bad system call")
 
 #undef __BIONIC_SIGDEF

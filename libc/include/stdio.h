@@ -167,7 +167,7 @@ char* tempnam(const char* __dir, const char* __prefix)
 
 int rename(const char* __old_path, const char* __new_path);
 int renameat(int __old_dir_fd, const char* __old_path, int __new_dir_fd, const char* __new_path);
-
+int renameat2(int olddirfd, const char *oldpath, int newdirfd, const char *newpath, unsigned int flags);
 int fseek(FILE* __fp, long __offset, int __whence);
 long ftell(FILE* __fp);
 

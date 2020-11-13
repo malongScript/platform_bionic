@@ -6,8 +6,10 @@ ENTRY(getsockopt)
     li     a7, __NR_getsockopt
     ecall  #0
 
-    lui    a7, 0xfffff    
-    bltu   a7, a0, __set_errno_internal
-
+    bgez   a0, 1f
+    mv t0, ra
+    call   __set_errno_internal
+    mv ra, t0
+1:
     ret
 END(getsockopt)

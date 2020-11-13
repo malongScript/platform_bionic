@@ -31,6 +31,7 @@
 #include <errno.h>
 #include <string.h>
 #include <sys/mman.h>
+#include <linux/mman.h>
 #include <sys/prctl.h>
 #include <sys/random.h>
 #include <unistd.h>

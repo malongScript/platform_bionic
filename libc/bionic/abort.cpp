@@ -46,7 +46,19 @@ void abort() {
 
   // If SIGABRT is ignored or it's caught and the handler returns,
   // remove the SIGABRT signal handler and raise SIGABRT again.
-  struct sigaction64 sa = { .sa_handler = SIG_DFL, .sa_flags = SA_RESTART };
+  //
+  // TBD: not very clear why original code can not pass compile:
+  // bionic/libc/bionic/abort.cpp:49:52: error: ISO C++ requires field designators to be specified in declaration order; field '' will be initialized after field 'sa_flags' [-Werror,-Wreorder-init-list]
+  // struct sigaction64 sa = { .sa_handler = SIG_DFL, .sa_flags = SA_RESTART };
+  //                                                  ^~~~~~~~~~~~~~~~~~~~~~
+  // bionic/libc/bionic/abort.cpp:49:29: note: previous initialization for field '' is here
+  // struct sigaction64 sa = { .sa_handler = SIG_DFL, .sa_flags = SA_RESTART };
+  //                          ^~~~~~~~~~~~~~~~~~~~~
+  // 1 error generated.
+  //struct sigaction64 sa = { .sa_handler = SIG_DFL, .sa_flags = SA_RESTART };
+  struct sigaction64 sa = {};
+  sa.sa_handler = SIG_DFL;
+  sa.sa_flags = SA_RESTART;
   sigaction64(SIGABRT, &sa, nullptr);
 
   sigprocmask64(SIG_SETMASK, &mask, nullptr);

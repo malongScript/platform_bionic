@@ -32,6 +32,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mman.h>
+#include <linux/mman.h>
 #include <sys/stat.h>
 
 #include <async_safe/log.h>

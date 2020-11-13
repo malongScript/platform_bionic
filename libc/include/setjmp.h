@@ -56,6 +56,9 @@
   #endif
 #elif defined(__x86_64__)
 #define _JBLEN 11
+#elif defined(__riscv)
+// refer to musl-1.2.1/arch/riscv64/bits/setjmp.h
+#define _JBLEN 25
 #endif
 
 typedef long sigjmp_buf[_JBLEN + 1];

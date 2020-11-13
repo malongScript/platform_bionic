@@ -30,20 +30,6 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define TEST
-
-#if defined(TEST)
-
-int main();
-
-#define weak __attribute__((__weak__))
-weak void _init();
-weak void _fini();
-int __libc_start_main(int (*)(), int, char **,
-	void (*)(), void(*)(), void(*)());
-
-#else
-
 __attribute__ ((section (".preinit_array")))
 void (*__PREINIT_ARRAY__)(void) = (void (*)(void)) -1;
 
@@ -53,18 +39,7 @@ void (*__INIT_ARRAY__)(void) = (void (*)(void)) -1;
 __attribute__ ((section (".fini_array")))
 void (*__FINI_ARRAY__)(void) = (void (*)(void)) -1;
 
-#endif
-
 __LIBC_HIDDEN__  void _start_main(void *raw_args) {
-
-#if defined(TEST)
-
-  long *p = (long *)raw_args;
-  int argc = p[0];
-	char **argv = (void *)(p+1);
-  __libc_start_main(main, argc, argv, _init, _fini, 0);
-
-#else
 
   structors_array_t array;
   array.preinit_array = &__PREINIT_ARRAY__;
@@ -72,16 +47,7 @@ __LIBC_HIDDEN__  void _start_main(void *raw_args) {
   array.fini_array = &__FINI_ARRAY__;
 
   __libc_init(raw_args, NULL, &main, &array);
-#endif
 }
-
-/*
- * This function prepares the return address with a branch-and-link
- * instruction (bal) and then uses a .cpload to compute the Global
- * Offset Table (GOT) pointer ($gp). The $gp is then used to load
- * the address of _do_start() into $t9 just before calling it.
- * Terminating the stack with a NULL return address.
- */
 
 #define START "_start"
 
@@ -105,6 +71,7 @@ START ":\n"
 "tail _start_main"
 );
 
-//#include "../../arch-common/bionic/__dso_handle.h"
-//#include "../../arch-common/bionic/atexit.h"
-//#include "../../arch-common/bionic/pthread_atfork.h"
+// TBD, temprarily commented, due to conflict with crtbeginS.o in GNU tools.
+#include "../../arch-common/bionic/__dso_handle.h"
+#include "../../arch-common/bionic/atexit.h"
+#include "../../arch-common/bionic/pthread_atfork.h"

@@ -26,6 +26,7 @@
 #include <pthread.h>
 #include <signal.h>
 #include <sys/mman.h>
+#include <linux/mman.h>
 #include <sys/prctl.h>
 
 #include <async_safe/log.h>

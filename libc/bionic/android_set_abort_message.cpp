@@ -33,6 +33,7 @@
 #include <stddef.h>
 #include <string.h>
 #include <sys/mman.h>
+#include <linux/mman.h>
 #include <sys/prctl.h>
 
 #include "private/bionic_defs.h"

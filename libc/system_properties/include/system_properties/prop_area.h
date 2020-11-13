@@ -32,6 +32,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <sys/mman.h>
+#include <linux/mman.h>
 
 #include "private/bionic_macros.h"
 

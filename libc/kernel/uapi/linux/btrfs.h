@@ -458,6 +458,7 @@ enum btrfs_err_code {
 #define BTRFS_IOC_DEFRAG _IOW(BTRFS_IOCTL_MAGIC, 2, struct btrfs_ioctl_vol_args)
 #define BTRFS_IOC_RESIZE _IOW(BTRFS_IOCTL_MAGIC, 3, struct btrfs_ioctl_vol_args)
 #define BTRFS_IOC_SCAN_DEV _IOW(BTRFS_IOCTL_MAGIC, 4, struct btrfs_ioctl_vol_args)
+#define BTRFS_IOC_FORGET_DEV _IOW(BTRFS_IOCTL_MAGIC, 5, struct btrfs_ioctl_vol_args)
 #define BTRFS_IOC_TRANS_START _IO(BTRFS_IOCTL_MAGIC, 6)
 #define BTRFS_IOC_TRANS_END _IO(BTRFS_IOCTL_MAGIC, 7)
 #define BTRFS_IOC_SYNC _IO(BTRFS_IOCTL_MAGIC, 8)
@@ -500,8 +501,8 @@ enum btrfs_err_code {
 #define BTRFS_IOC_QUOTA_RESCAN _IOW(BTRFS_IOCTL_MAGIC, 44, struct btrfs_ioctl_quota_rescan_args)
 #define BTRFS_IOC_QUOTA_RESCAN_STATUS _IOR(BTRFS_IOCTL_MAGIC, 45, struct btrfs_ioctl_quota_rescan_args)
 #define BTRFS_IOC_QUOTA_RESCAN_WAIT _IO(BTRFS_IOCTL_MAGIC, 46)
-#define BTRFS_IOC_GET_FSLABEL _IOR(BTRFS_IOCTL_MAGIC, 49, char[BTRFS_LABEL_SIZE])
-#define BTRFS_IOC_SET_FSLABEL _IOW(BTRFS_IOCTL_MAGIC, 50, char[BTRFS_LABEL_SIZE])
+#define BTRFS_IOC_GET_FSLABEL FS_IOC_GETFSLABEL
+#define BTRFS_IOC_SET_FSLABEL FS_IOC_SETFSLABEL
 #define BTRFS_IOC_GET_DEV_STATS _IOWR(BTRFS_IOCTL_MAGIC, 52, struct btrfs_ioctl_get_dev_stats)
 #define BTRFS_IOC_DEV_REPLACE _IOWR(BTRFS_IOCTL_MAGIC, 53, struct btrfs_ioctl_dev_replace_args)
 #define BTRFS_IOC_FILE_EXTENT_SAME _IOWR(BTRFS_IOCTL_MAGIC, 54, struct btrfs_ioctl_same_args)

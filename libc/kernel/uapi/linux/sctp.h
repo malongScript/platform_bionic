@@ -21,6 +21,9 @@
 #include <linux/types.h>
 #include <linux/socket.h>
 typedef __s32 sctp_assoc_t;
+#define SCTP_FUTURE_ASSOC 0
+#define SCTP_CURRENT_ASSOC 1
+#define SCTP_ALL_ASSOC 2
 #define SCTP_RTOINFO 0
 #define SCTP_ASSOCINFO 1
 #define SCTP_INITMSG 2
@@ -84,6 +87,9 @@ typedef __s32 sctp_assoc_t;
 #define SCTP_INTERLEAVING_SUPPORTED 125
 #define SCTP_SENDMSG_CONNECT 126
 #define SCTP_EVENT 127
+#define SCTP_ASCONF_SUPPORTED 128
+#define SCTP_AUTH_SUPPORTED 129
+#define SCTP_ECN_SUPPORTED 130
 #define SCTP_PR_SCTP_NONE 0x0000
 #define SCTP_PR_SCTP_TTL 0x0010
 #define SCTP_PR_SCTP_RTX 0x0020

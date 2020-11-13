@@ -251,6 +251,10 @@ struct user_fpsimd_struct {
 
 #elif defined(__riscv)
 
+// I comment out struct user and rebuild libc, passed
+// TBD, don't know what's this used for, just keep commented out till some
+// one else use it
+#if 0
 struct user {
   unsigned long regs[180 / sizeof(unsigned long) + 64];
   size_t u_tsize;
@@ -264,6 +268,7 @@ struct user {
   unsigned long magic;
   char u_comm[32];
 };
+#endif
 
 #else
 

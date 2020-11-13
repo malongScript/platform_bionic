@@ -31,6 +31,7 @@
  */
 
 #include <sys/mman.h>
+#include <linux/mman.h>
 #include <sys/types.h>
 
 #include <errno.h>

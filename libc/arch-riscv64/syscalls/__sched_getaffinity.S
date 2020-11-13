@@ -6,9 +6,11 @@ ENTRY(__sched_getaffinity)
     li     a7, __NR_sched_getaffinity
     ecall  #0
 
-    lui    a7, 0xfffff    
-    bltu   a7, a0, __set_errno_internal
-
+    bgez   a0, 1f
+    mv t0, ra
+    call   __set_errno_internal
+    mv ra, t0
+1:
     ret
 END(__sched_getaffinity)
 .hidden __sched_getaffinity

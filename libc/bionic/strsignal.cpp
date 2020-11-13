@@ -31,13 +31,20 @@
 
 #include "bionic/pthread_internal.h"
 
+/*
+FIXME: to fix error: array designators are a C99 extension [-Werror,-Wc99-designator]
+*/
 const char* const sys_siglist[NSIG] = {
-#define __BIONIC_SIGDEF(signal_number, signal_description) [ signal_number ] = signal_description,
+//#define __BIONIC_SIGDEF(signal_number, signal_description) [ signal_number ] = signal_description,
+#define __BIONIC_SIGDEF(signal_number, signal_description) signal_description,
+  nullptr, // first one is null
 #include "private/bionic_sigdefs.h"
 };
 
 const char* const sys_signame[NSIG] = {
-#define __BIONIC_SIGDEF(signal_number, unused) [ signal_number ] = &(#signal_number)[3],
+//#define __BIONIC_SIGDEF(signal_number, unused) [ signal_number ] = &(#signal_number)[3],
+#define __BIONIC_SIGDEF(signal_number, unused) &(#signal_number)[3],
+  nullptr,  // first one is null
 #include "private/bionic_sigdefs.h"
 };
 

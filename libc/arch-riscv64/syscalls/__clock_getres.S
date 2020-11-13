@@ -6,9 +6,11 @@ ENTRY(__clock_getres)
     li     a7, __NR_clock_getres
     ecall  #0
 
-    lui    a7, 0xfffff    
-    bltu   a7, a0, __set_errno_internal
-
+    bgez   a0, 1f
+    mv t0, ra
+    call   __set_errno_internal
+    mv ra, t0
+1:
     ret
 END(__clock_getres)
 .hidden __clock_getres
