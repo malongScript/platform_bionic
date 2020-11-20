@@ -37,17 +37,25 @@
 // and
 // posix_spawn(), which is defined in bionic/libc/bionic/spawn.cpp
 ENTRY(vfork)
-    /* Move syscall No. from a0 to x7 */
-    li     a7, __NR_clone
-    li     a0, (CLONE_VM | CLONE_VFORK | SIGCHLD)
-    /* TBD */
-    ecall  #0
+__BIONIC_WEAK_ASM_FOR_NATIVE_BRIDGE(vfork)
 
-    /* check if syscall returned successfully */
-    lui    a7, 0xfffff    
-    
-    /* bltu   a7, a0, __set_errno_internal*/
+    // __get_tls()[TLS_SLOT_THREAD_ID]->cached_pid_ = 0
+    // TBD, have not supported this!
 
+    li      a0, (CLONE_VM | CLONE_VFORK | SIGCHLD)
+    mv      a1, sp
+    li      a7, __NR_clone
+    ecall   #0
+
+    # Successful return from the parent.
+    bgez    a0, 1f
+
+    # Set errno if something went wrong.
+    mv t0, ra
+    call   __set_errno_internal
+    mv ra, t0
+1:
     ret
+    
 END(vfork)
 

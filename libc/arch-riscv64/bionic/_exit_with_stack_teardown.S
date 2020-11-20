@@ -26,7 +26,9 @@
  * SUCH DAMAGE.
  */
 
-// TBD: copy from arm64
+// refer 
+// musl-1.2.1/src/thread/riscv64/__unmapself.s plus 
+// bionic/libc/arch-arm64/bionic/_exit_with_stack_teardown.S
 
 #include <private/bionic_asm.h>
 

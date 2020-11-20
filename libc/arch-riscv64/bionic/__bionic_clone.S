@@ -26,7 +26,7 @@
  * SUCH DAMAGE.
  */
 
-// TBD, copied from arm64, just to pass build
+// refer riscv-glibc/sysdeps/unix/sysv/linux/riscv/clone.S
 
 #include <private/bionic_asm.h>
 
@@ -34,28 +34,42 @@
 
 ENTRY_PRIVATE(__bionic_clone)
     # Push 'fn' and 'arg' onto the child stack.
-    # stp     x5, x6, [x1, #-16]!
+    addi    a1,a1,-16	/* Reserve argument save space.  */
+    sd      a5,0(a1)	/* Save function pointer.  */
+    sd      a6,8(a1)	/* Save argument pointer.  */
+
+    // notice regarding args sequence, not like clone() in glibc,
+    // __bionic_clone has the same sequence as that for linux syscall
+    // so we need not to adjust the registers here
+    // linux sys_clone() definition refer to linuxsource/kernel/fork.c
 
     # Make the system call.
     li      a7, __NR_clone
-    ecall     #0
+    ecall   #0
 
     # Are we the child?
-    #cbz     x0, .L_bc_child
+    beqz    a0, .L_bc_child
+    
+    # Successful return from the parent.
+    bgez    a0, 1f
 
     # Set errno if something went wrong.
-    #cmn     x0, #(MAX_ERRNO + 1)
-    #cneg    x0, x0, hi
-    #b.hi    __set_errno_internal
-
+    mv t0, ra
+    call   __set_errno_internal
+    mv ra, t0
+1:
     ret
 
 .L_bc_child:
     # We're in the child now. Set the end of the frame record chain.
-    # mv     x29, #0
-    # Setting x30 to 0 will make the unwinder stop at __start_thread.
-    # mov     x30, #0
+    
     # Call __start_thread with the 'fn' and 'arg' we stored on the child stack.
-    #ldp     x0, x1, [sp], #16
-    j       __start_thread
+    ld      a0,0(sp)	/* Function pointer.  */
+	ld      a1,8(sp)	/* Argument pointer.  */
+    mv t0, ra
+	call    __start_thread
+    mv ra, t0
+
+    ret
+
 END(__bionic_clone)

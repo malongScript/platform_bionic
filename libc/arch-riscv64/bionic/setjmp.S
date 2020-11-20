@@ -1,59 +1,41 @@
-/*
- * Copyright (C) 2013 The Android Open Source Project
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  * Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  * Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the
- *    distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
- * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
- * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
- * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
- * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
- * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
+.global __setjmp
+.global _setjmp
+.global setjmp
+.type __setjmp, %function
+.type _setjmp,  %function
+.type setjmp,   %function
+__setjmp:
+_setjmp:
+setjmp:
+	sd s0,    0(a0)
+	sd s1,    8(a0)
+	sd s2,    16(a0)
+	sd s3,    24(a0)
+	sd s4,    32(a0)
+	sd s5,    40(a0)
+	sd s6,    48(a0)
+	sd s7,    56(a0)
+	sd s8,    64(a0)
+	sd s9,    72(a0)
+	sd s10,   80(a0)
+	sd s11,   88(a0)
+	sd sp,    96(a0)
+	sd ra,    104(a0)
 
-#include <private/bionic_asm.h>
+#ifndef __riscv_float_abi_soft
+	fsd fs0,  112(a0)
+	fsd fs1,  120(a0)
+	fsd fs2,  128(a0)
+	fsd fs3,  136(a0)
+	fsd fs4,  144(a0)
+	fsd fs5,  152(a0)
+	fsd fs6,  160(a0)
+	fsd fs7,  168(a0)
+	fsd fs8,  176(a0)
+	fsd fs9,  184(a0)
+	fsd fs10, 192(a0)
+	fsd fs11, 200(a0)
+#endif
 
-// TBD: just fake to pass build
-ENTRY(sigsetjmp)
-    /* Move syscall No. from a0 to x7 */
-    mv     a7, a0
-    mv     a0, a1
-    /* TBD */
-    ecall  #0
-
-    /* check if syscall returned successfully */
-    lui    a7, 0xfffff    
-    /* bltu   a7, a0, __set_errno_internal*/
-
-    ret
-END(sigsetjmp)
-
-// TBD: just fake to pass build
-ENTRY(siglongjmp)
-    /* Move syscall No. from a0 to x7 */
-    mv     a7, a0
-    mv     a0, a1
-    /* TBD */
-    ecall  #0
-
-    /* check if syscall returned successfully */
-    lui    a7, 0xfffff    
-    /* bltu   a7, a0, __set_errno_internal*/
-
-    ret
-END(siglongjmp)
+	li a0, 0
+	ret

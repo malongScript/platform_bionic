@@ -29,16 +29,24 @@
 #include <private/bionic_asm.h>
 
 ENTRY(syscall)
-    /* Move syscall No. from a0 to x7 */
+    /* Move syscall No. from a0 to a7 */
     mv     a7, a0
+    /* Move syscall parameters from a1 thru a6 to a0 thru a5 */
     mv     a0, a1
-    /* TBD */
+    mv     a1, a2
+    mv     a2, a3
+    mv     a3, a4
+    mv     a4, a5
+    mv     a5, a6
+    
     ecall  #0
 
     /* check if syscall returned successfully */
-    lui    a7, 0xfffff    
-    /* bltu   a7, a0, __set_errno_internal*/
-
+    bgez   a0, 1f
+    mv     t0, ra
+    call   __set_errno_internal
+    mv     ra, t0
+1:
     ret
 END(syscall)
 

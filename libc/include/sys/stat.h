@@ -36,7 +36,7 @@
 
 __BEGIN_DECLS
 
-#if defined(__aarch64__) || (defined(__mips__) && defined(__LP64__))
+#if defined(__aarch64__) || (defined(__mips__) && defined(__LP64__)) || defined(__riscv)
 #define __STAT64_BODY \
   dev_t st_dev; \
   ino_t st_ino; \

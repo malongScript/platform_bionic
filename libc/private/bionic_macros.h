@@ -63,9 +63,10 @@ static inline T* align_up(T* p, size_t align) {
 #elif defined (__mips__)
 #define BIONIC_STOP_UNWIND asm volatile(".cfi_undefined $ra")
 #elif defined (__riscv)
-// TBD, reference mips, but use "ra", not "$ra"
+// reference mips, but use "ra", not "$ra"
 // #define BIONIC_STOP_UNWIND asm volatile(".cfi_undefined ra")
-// unwind on riscv will cause segment fault!, don't know why
+// TBD: disable this due to unwind on riscv will cause 
+// segment fault!, don't know why
 #define BIONIC_STOP_UNWIND
 #endif
 

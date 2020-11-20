@@ -56,15 +56,31 @@
   #endif
 #elif defined(__x86_64__)
 #define _JBLEN 11
-#elif defined(__riscv)
-// refer to musl-1.2.1/arch/riscv64/bits/setjmp.h
-#define _JBLEN 25
 #endif
+
+#if defined(__riscv)
+// refer to musl-1.2.1
+// musl-1.2.1/arch/riscv64/bits/setjmp.h
+// musl-1.2.1/include/setjmp.h
+
+typedef unsigned long __jmp_buf[26];
+
+typedef struct __jmp_buf_tag {
+	__jmp_buf __jb;
+	unsigned long __fl;
+	unsigned long __ss[128/sizeof(long)];
+} jmp_buf[1];
+
+typedef jmp_buf sigjmp_buf;
+
+#else
 
 typedef long sigjmp_buf[_JBLEN + 1];
 typedef long jmp_buf[_JBLEN];
 
 #undef _JBLEN
+
+#endif
 
 __BEGIN_DECLS
 

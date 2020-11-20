@@ -47,7 +47,8 @@
 #elif defined(__x86_64__)
 #include <private/bionic_asm_x86_64.h>
 #elif defined(__riscv)
-// FIXME: till now, needless
+// TBD: till now, I'm not very sure if the definition in
+// header file is needed, just keep here to pass building
 #include <private/bionic_asm_riscv64.h>
 #else
 #error Unsupported architecture!

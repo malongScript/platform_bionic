@@ -100,6 +100,7 @@ int utmpname(const char* __path);
 void setutent(void);
 struct utmp* getutent(void);
 void endutent(void);
+void pututline(struct utmp *);
 
 int login_tty(int __fd) __INTRODUCED_IN(23);
 
