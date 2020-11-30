@@ -188,6 +188,7 @@ __noreturn static void __real_libc_init(void *raw_args,
 
   // Several Linux ABIs don't pass the onexit pointer, and the ones that
   // do never use it.  Therefore, we ignore it.
+
   call_array(structors->preinit_array);
   call_array(structors->init_array);
 
