@@ -78,15 +78,16 @@
 
 #elif defined (__riscv)
 
-// TBD: just use x86_64 to pass build
-
-#define R_GENERIC_JUMP_SLOT     R_X86_64_JUMP_SLOT
-#define R_GENERIC_GLOB_DAT      R_X86_64_GLOB_DAT
-#define R_GENERIC_RELATIVE      R_X86_64_RELATIVE
-#define R_GENERIC_IRELATIVE     R_X86_64_IRELATIVE
-#define R_GENERIC_TLS_DTPMOD    R_X86_64_DTPMOD64
-#define R_GENERIC_TLS_DTPREL    R_X86_64_DTPOFF64
-#define R_GENERIC_TLS_TPREL     R_X86_64_TPOFF64
-#define R_GENERIC_TLSDESC       R_X86_64_TLSDESC
+#define R_GENERIC_JUMP_SLOT     R_RISCV_JUMP_SLOT
+// TBD: R_GENERIC_GLOB_DAT may be incorrect
+#define R_GENERIC_GLOB_DAT      R_RISCV_64
+#define R_GENERIC_RELATIVE      R_RISCV_RELATIVE
+#define R_GENERIC_IRELATIVE     R_RISCV_IRELATIVE
+#define R_GENERIC_TLS_DTPMOD    R_RISCV_TLS_DTPMOD64
+#define R_GENERIC_TLS_DTPREL    R_RISCV_TLS_DTPREL64
+#define R_GENERIC_TLS_TPREL     R_RISCV_TLS_TPREL64
+// TBD: I'm not sure if riscv has supported TLSDESC, just mark it as none
+// to pass build!
+#define R_GENERIC_TLSDESC       R_RISCV_NONE
 
 #endif

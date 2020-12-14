@@ -37,6 +37,7 @@
 #include <bits/elf_mips.h>
 #include <bits/elf_x86.h>
 #include <bits/elf_x86_64.h>
+#include <bits/elf_riscv.h>
 #include <linux/elf.h>
 #include <linux/elf-em.h>
 
