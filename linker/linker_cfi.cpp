@@ -33,6 +33,7 @@
 #include "private/bionic_page.h"
 
 #include <sys/mman.h>
+#include <linux/mman.h>
 #include <sys/prctl.h>
 #include <sys/types.h>
 #include <cstdint>

@@ -31,6 +31,7 @@
 #include <errno.h>
 #include <string.h>
 #include <sys/mman.h>
+#include <linux/mman.h>
 #include <sys/prctl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -55,6 +56,8 @@ static int GetTargetElfMachine() {
   return EM_MIPS;
 #elif defined(__x86_64__)
   return EM_X86_64;
+#elif defined(__riscv)
+  return EM_RISCV;
 #endif
 }
 
