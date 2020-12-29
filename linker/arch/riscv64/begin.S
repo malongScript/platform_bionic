@@ -36,5 +36,5 @@ ENTRY(_start)
   jal		__linker_init
 
   /* linker init returns the _entry address in the main image */
-  j a0
+  jr a0
 END(_start)

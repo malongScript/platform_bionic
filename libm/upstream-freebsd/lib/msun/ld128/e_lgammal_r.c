@@ -306,10 +306,10 @@ lgammal_r(long double x, int *signgamp)
 	    r = y/2+p/q;
 	    z = 1;	/* lgamma(1+s) = log(s) + lgamma(s) */
 	    switch(i) {
-	    case 7: z *= (y+6);		/* FALLTHRU */
-	    case 6: z *= (y+5);		/* FALLTHRU */
-	    case 5: z *= (y+4);		/* FALLTHRU */
-	    case 4: z *= (y+3);		/* FALLTHRU */
+	    case 7: z *= (y+6);		/* FALLTHRU */__attribute__((fallthrough));
+	    case 6: z *= (y+5);		/* FALLTHRU */__attribute__((fallthrough));
+	    case 5: z *= (y+4);		/* FALLTHRU */__attribute__((fallthrough));
+	    case 4: z *= (y+3);		/* FALLTHRU */__attribute__((fallthrough));
 	    case 3: z *= (y+2);		/* FALLTHRU */
 		    r += logl(z); break;
 	    }

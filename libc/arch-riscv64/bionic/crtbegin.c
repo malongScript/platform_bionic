@@ -71,7 +71,6 @@ START ":\n"
 "tail _start_main"
 );
 
-// TBD, temprarily commented, due to conflict with crtbeginS.o in GNU tools.
 #include "../../arch-common/bionic/__dso_handle.h"
 #include "../../arch-common/bionic/atexit.h"
 #include "../../arch-common/bionic/pthread_atfork.h"
